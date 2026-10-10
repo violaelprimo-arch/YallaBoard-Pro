@@ -1,0 +1,11 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <AssemblyName>YallaBoard.Desktop</AssemblyName>
+    <Company>YallaCodeX</Company>
+    <Product>YallaBoard Pro</Product>
+    <Copyright>Copyright © 2026 YallaCodeX. All rights reserved.</Copyright>
+  </PropertyGroup>
+</Project>
