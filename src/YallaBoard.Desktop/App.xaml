@@ -3,5 +3,47 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
+        <!-- ألوان YallaCodeX الرسمية -->
+        <Color x:Key="ColorMidnight">#071952</Color>
+        <Color x:Key="ColorTeal">#088395</Color>
+        <Color x:Key="ColorCyan">#9CD5FF</Color>
+        
+        <SolidColorBrush x:Key="BrushMidnight" Color="{StaticResource ColorMidnight}"/>
+        <SolidColorBrush x:Key="BrushTeal" Color="{StaticResource ColorTeal}"/>
+        <SolidColorBrush x:Key="BrushCyan" Color="{StaticResource ColorCyan}"/>
+
+        <!-- أيقونات احترافية (Vector Paths) بجودة 4K -->
+        <Geometry x:Key="IconPen">M20.71,7.04C21.1,6.65 21.1,6 20.71,5.63L18.37,3.29C18,2.9 17.35,2.9 16.96,3.29L15.12,5.12L18.87,8.87M3,17.25V21H6.75L17.81,9.93L14.06,6.18L3,17.25Z</Geometry>
+        <Geometry x:Key="IconEraser">M16.24,3.56L21.19,8.5C21.97,9.29 21.97,10.55 21.19,11.34L12,20.53C10.44,22.09 7.91,22.09 6.34,20.53L2.81,17C2.03,16.21 2.03,14.95 2.81,14.16L11.3,5.68C12.86,4.12 15.39,4.12 16.96,5.68V5.68M4.22,15.58L7.76,19.11C8.54,19.9 9.8,19.9 10.59,19.11L14.12,15.58L9.17,10.63L4.22,15.58Z</Geometry>
+        <Geometry x:Key="IconTrash">M19,4H15.5L14.5,3H9.5L8.5,4H5V6H19M6,19A2,2 0 0,0 8,21H16A2,2 0 0,0 18,19V7H6V19Z</Geometry>
+        <Geometry x:Key="IconClose">M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z</Geometry>
+        <Geometry x:Key="IconHighlighter">M19.3,2.7C18.9,2.3 18.3,2.3 17.9,2.7L12.2,8.4L15.6,11.8L21.3,6.1C21.7,5.7 21.7,5.1 21.3,4.7L19.3,2.7M3,17V21H7L14.6,13.4L10.6,9.4L3,17Z</Geometry>
+
+        <!-- تصميم الأزرار الاحترافية بدون خلفية مزعجة -->
+        <Style TargetType="Button" x:Key="ToolButtonStyle">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="Padding" Value="10"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" CornerRadius="10" Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#33FFFFFF"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Background" Value="#66FFFFFF"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
     </Application.Resources>
 </Application>
