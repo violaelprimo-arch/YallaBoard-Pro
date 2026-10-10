@@ -2,101 +2,90 @@
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="YallaBoard Pro" Height="1080" Width="1920"
-        WindowStyle="None" WindowState="Maximized" FlowDirection="RightToLeft">
+        WindowStyle="None" WindowState="Maximized" FlowDirection="RightToLeft"
+        Background="{StaticResource BrushDarkBg}">
     
-    <Grid Background="#F4F6F9">
-        <!-- مساحة الرسم الأساسية -->
-        <InkCanvas x:Name="MainBoard" Background="White" Margin="0,50,0,0"/>
+    <Grid>
+        <!-- 1. مساحة السبورة البيضاء -->
+        <InkCanvas x:Name="MainBoard" Background="#F8F9FA" Margin="0,50,0,0" 
+                   PreviewStylusDown="MainBoard_PreviewTouch" PreviewMouseDown="MainBoard_PreviewTouch"/>
 
-        <!-- الشريط العلوي (Title Bar) مخصص ومدمج -->
-        <Border Height="50" Background="{StaticResource BrushMidnight}" VerticalAlignment="Top" MouseLeftButtonDown="TopBar_MouseLeftButtonDown">
+        <!-- 2. الشريط العلوي (Dark Header) -->
+        <Border Height="50" Background="{StaticResource BrushPanelBg}" VerticalAlignment="Top" MouseLeftButtonDown="TopBar_MouseLeftButtonDown">
             <Grid>
-                <!-- اسم البرنامج والشعار -->
                 <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="20,0" HorizontalAlignment="Left">
-                    <TextBlock Text="YallaBoard Pro" Foreground="White" FontSize="20" FontWeight="Bold" />
-                    <TextBlock Text=" | مساحة الشرح التفاعلية" Foreground="{StaticResource BrushCyan}" FontSize="16" Margin="10,2,0,0" />
+                    <!-- لوجو نصي بألوان الهوية -->
+                    <TextBlock Text="Yalla" Foreground="{StaticResource BrushOrange}" FontSize="24" FontWeight="Bold" />
+                    <TextBlock Text="Board" Foreground="{StaticResource BrushBlue}" FontSize="24" FontWeight="Bold" />
+                    <TextBlock Text=" | مساحة الشرح التفاعلية" Foreground="#888" FontSize="16" Margin="10,6,0,0" />
                 </StackPanel>
                 
-                <!-- أزرار التحكم في النافذة -->
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="0,0,10,0">
-                    <Button Style="{StaticResource ToolButtonStyle}" Click="CloseApp_Click" Width="40" Height="40" ToolTip="إغلاق">
-                        <Path Data="{StaticResource IconClose}" Fill="#FF4C4C" Stretch="Uniform" Width="16" Height="16"/>
-                    </Button>
+                    <Button Content="⚙️" Style="{StaticResource IconBtnStyle}" ToolTip="الإعدادات"/>
+                    <Button Content="❌" Style="{StaticResource IconBtnStyle}" Click="CloseApp_Click" Foreground="#FF4C4C"/>
                 </StackPanel>
             </Grid>
         </Border>
 
-        <!-- شريط الأدوات العائم الاحترافي (Glassmorphism) -->
-        <Border Background="#EB071952" CornerRadius="20" Margin="0,0,0,30" 
-                VerticalAlignment="Bottom" HorizontalAlignment="Center" Padding="15">
+        <!-- 3. شريط الأدوات العائم (Floating Toolbar) -->
+        <Border Background="#D81A1E24" CornerRadius="20" Margin="0,0,0,30" 
+                VerticalAlignment="Bottom" HorizontalAlignment="Center" Padding="15,10">
             <Border.Effect>
-                <DropShadowEffect BlurRadius="25" ShadowDepth="8" Opacity="0.5"/>
+                <DropShadowEffect BlurRadius="20" ShadowDepth="5" Opacity="0.5"/>
             </Border.Effect>
+            
             <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                 
-                <!-- الألوان كدوائر احترافية -->
-                <Button Width="36" Height="36" Margin="4" Click="Color_Click" Tag="#071952" ToolTip="كحلي YallaCodeX">
-                    <Button.Template>
-                        <ControlTemplate TargetType="Button">
-                            <Ellipse Fill="#071952" Stroke="White" StrokeThickness="2" Cursor="Hand"/>
-                        </ControlTemplate>
-                    </Button.Template>
-                </Button>
-                <Button Width="36" Height="36" Margin="4" Click="Color_Click" Tag="#088395" ToolTip="بترولي">
-                    <Button.Template>
-                        <ControlTemplate TargetType="Button">
-                            <Ellipse Fill="#088395" Stroke="White" StrokeThickness="2" Cursor="Hand"/>
-                        </ControlTemplate>
-                    </Button.Template>
-                </Button>
-                <Button Width="36" Height="36" Margin="4" Click="Color_Click" Tag="#E53935" ToolTip="أحمر">
-                    <Button.Template>
-                        <ControlTemplate TargetType="Button">
-                            <Ellipse Fill="#E53935" Stroke="White" StrokeThickness="2" Cursor="Hand"/>
-                        </ControlTemplate>
-                    </Button.Template>
-                </Button>
-                <Button Width="36" Height="36" Margin="4,4,15,4" Click="Color_Click" Tag="#000000" ToolTip="أسود">
-                    <Button.Template>
-                        <ControlTemplate TargetType="Button">
-                            <Ellipse Fill="#000000" Stroke="White" StrokeThickness="2" Cursor="Hand"/>
-                        </ControlTemplate>
-                    </Button.Template>
-                </Button>
-
-                <Rectangle Width="1" Fill="#55FFFFFF" Margin="5,0"/>
-
-                <!-- سُمك الخط -->
-                <TextBlock Text="السُمك" Foreground="White" VerticalAlignment="Center" Margin="10,0"/>
-                <Slider x:Name="ThicknessSlider" Width="100" Minimum="2" Maximum="30" Value="5" ValueChanged="ThicknessSlider_ValueChanged" VerticalAlignment="Center" Margin="5,0"/>
+                <!-- زر القلم الأساسي -->
+                <ToggleButton x:Name="BtnPen" Content="🖋️" Style="{StaticResource {x:Type ToggleButton}}" 
+                              Width="50" Height="50" Margin="5" Click="BtnPen_Click" Background="{StaticResource BrushBlue}" Foreground="White" FontSize="20"/>
                 
-                <Rectangle Width="1" Fill="#55FFFFFF" Margin="10,0"/>
+                <!-- نافذة إعدادات القلم المنبثقة -->
+                <Popup x:Name="PopupPenSettings" PlacementTarget="{Binding ElementName=BtnPen}" Placement="Top" StaysOpen="False" AllowsTransparency="True" VerticalOffset="-10">
+                    <Border Background="{StaticResource BrushPanelBg}" CornerRadius="15" Padding="15">
+                        <StackPanel>
+                            <TextBlock Text="سُمك القلم:" Foreground="White" Margin="0,0,0,10"/>
+                            <Slider x:Name="PenThickness" Minimum="2" Maximum="30" Value="5" Width="150" ValueChanged="PenThickness_ValueChanged"/>
+                            
+                            <TextBlock Text="نوع السن:" Foreground="White" Margin="0,15,0,10"/>
+                            <StackPanel Orientation="Horizontal">
+                                <Button Content="عادي ⏺" Click="PenTipRound_Click" Background="#444" Foreground="White" Padding="5" Margin="2"/>
+                                <Button Content="مشطوف ▰" Click="PenTipChisel_Click" Background="#444" Foreground="White" Padding="5" Margin="2"/>
+                            </StackPanel>
 
-                <!-- أدوات الرسم المتجهة -->
-                <Button Style="{StaticResource ToolButtonStyle}" Click="PenMode_Click" ToolTip="القلم">
-                    <StackPanel Orientation="Horizontal">
-                        <Path Data="{StaticResource IconPen}" Fill="White" Stretch="Uniform" Width="20" Height="20"/>
-                    </StackPanel>
-                </Button>
+                            <TextBlock Text="اللون:" Foreground="White" Margin="0,15,0,10"/>
+                            <StackPanel Orientation="Horizontal">
+                                <Button Background="{StaticResource BrushOrange}" Width="30" Height="30" Margin="2" Click="Color_Click" Tag="#FF7A00"/>
+                                <Button Background="{StaticResource BrushBlue}" Width="30" Height="30" Margin="2" Click="Color_Click" Tag="#00B4D8"/>
+                                <Button Background="Black" Width="30" Height="30" Margin="2" Click="Color_Click" Tag="#000000"/>
+                                <Button Background="Red" Width="30" Height="30" Margin="2" Click="Color_Click" Tag="#FF0000"/>
+                            </StackPanel>
+                        </StackPanel>
+                    </Border>
+                </Popup>
+
+                <!-- زر التظليل -->
+                <Button Content="🖍️" Style="{StaticResource IconBtnStyle}" FontSize="20" Click="BtnHighlighter_Click"/>
                 
-                <Button Style="{StaticResource ToolButtonStyle}" Click="HighlighterMode_Click" ToolTip="قلم التظليل">
-                    <StackPanel Orientation="Horizontal">
-                        <Path Data="{StaticResource IconHighlighter}" Fill="#FFEB3B" Stretch="Uniform" Width="20" Height="20"/>
-                    </StackPanel>
-                </Button>
+                <!-- زر الممحاة -->
+                <ToggleButton x:Name="BtnEraser" Content="🧽" Style="{StaticResource {x:Type ToggleButton}}" 
+                              Width="50" Height="50" Margin="5" Click="BtnEraser_Click" FontSize="20" Background="Transparent"/>
+                
+                <Popup x:Name="PopupEraserSettings" PlacementTarget="{Binding ElementName=BtnEraser}" Placement="Top" StaysOpen="False" AllowsTransparency="True" VerticalOffset="-10">
+                    <Border Background="{StaticResource BrushPanelBg}" CornerRadius="15" Padding="15">
+                        <StackPanel>
+                            <TextBlock Text="حجم الممحاة:" Foreground="White" Margin="0,0,0,10"/>
+                            <Slider x:Name="EraserSize" Minimum="10" Maximum="100" Value="30" Width="150" ValueChanged="EraserSize_ValueChanged"/>
+                        </StackPanel>
+                    </Border>
+                </Popup>
 
-                <Button Style="{StaticResource ToolButtonStyle}" Click="EraserMode_Click" ToolTip="الممحاة">
-                    <StackPanel Orientation="Horizontal">
-                        <Path Data="{StaticResource IconEraser}" Fill="White" Stretch="Uniform" Width="20" Height="20"/>
-                    </StackPanel>
-                </Button>
+                <Rectangle Width="2" Fill="#55FFFFFF" Margin="10,5"/>
 
-                <Button Style="{StaticResource ToolButtonStyle}" Click="ClearBoard_Click" ToolTip="مسح السبورة">
-                    <StackPanel Orientation="Horizontal">
-                        <Path Data="{StaticResource IconTrash}" Fill="#FF6B6B" Stretch="Uniform" Width="20" Height="20"/>
-                    </StackPanel>
-                </Button>
-
+                <!-- القلم الذكي ومسح الكل -->
+                <Button Content="✨" Style="{StaticResource IconBtnStyle}" ToolTip="القلم الذكي (قريباً)" FontSize="20"/>
+                <Button Content="🗑️" Style="{StaticResource IconBtnStyle}" Click="ClearBoard_Click" FontSize="20" Foreground="#FF4C4C"/>
+                
             </StackPanel>
         </Border>
     </Grid>
