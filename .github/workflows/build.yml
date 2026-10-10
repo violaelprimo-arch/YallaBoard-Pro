@@ -1,0 +1,27 @@
+name: Build YallaBoard Pro Setup
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+    - name: Checkout Code
+      uses: actions/checkout@v4
+
+    - name: Setup .NET 8
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: 8.0.x
+
+    - name: Publish YallaBoard
+      run: dotnet publish src/YallaBoard.Desktop/YallaBoard.Desktop.csproj -c Release -r win-x64 --self-contained true -p:PublishSingleFile=true -o release_build
+
+    - name: Upload Setup File
+      uses: actions/upload-artifact@v4
+      with:
+        name: YallaBoard-Pro-Setup
+        path: release_build/YallaBoard.Desktop.exe
