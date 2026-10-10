@@ -3,35 +3,40 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-        <!-- ألوان YallaBoard الجديدة (من اللوجو) -->
-        <Color x:Key="BrandOrange">#FF7A00</Color>
-        <Color x:Key="BrandBlue">#00B4D8</Color>
-        <Color x:Key="DarkBackground">#1A1E24</Color>
-        <Color x:Key="PanelBackground">#2A2F38</Color>
-        
-        <SolidColorBrush x:Key="BrushOrange" Color="{StaticResource BrandOrange}"/>
-        <SolidColorBrush x:Key="BrushBlue" Color="{StaticResource BrandBlue}"/>
-        <SolidColorBrush x:Key="BrushDarkBg" Color="{StaticResource DarkBackground}"/>
-        <SolidColorBrush x:Key="BrushPanelBg" Color="{StaticResource PanelBackground}"/>
+        <!-- ألوان الواجهة الداكنة (مطابقة للصورة) -->
+        <Color x:Key="BgDark">#14192D</Color>
+        <Color x:Key="BgPanel">#1E2541</Color>
+        <Color x:Key="BgLighter">#2A3256</Color>
+        <Color x:Key="AccentBlue">#005FB8</Color>
+        <Color x:Key="AccentGreen">#25D366</Color>
+        <Color x:Key="TextWhite">#FFFFFF</Color>
+        <Color x:Key="TextGray">#A0AABF</Color>
 
-        <!-- تصميم الأزرار الموحد -->
-        <Style TargetType="Button" x:Key="IconBtnStyle">
+        <!-- أيقونات هندسية عالية الدقة -->
+        <!-- أيقونة الواتساب -->
+        <Geometry x:Key="IconWhatsApp">M12.04 2C6.5 2 2 6.5 2 12.04C2 13.97 2.54 15.79 3.48 17.33L2 22L6.8 20.55C8.32 21.41 10.11 21.95 12.01 21.95C17.55 21.95 22.04 17.46 22.04 11.92C22.04 6.39 17.57 2 12.04 2M11.99 19.96C10.3 19.96 8.71 19.46 7.37 18.6L7 18.38L4.17 19.12L4.93 16.37L4.69 15.98C3.76 14.52 3.23 12.78 3.23 10.96C3.23 6.16 7.15 2.23 11.96 2.23C16.78 2.23 20.7 6.16 20.7 10.96C20.7 15.77 16.78 19.96 11.99 19.96Z</Geometry>
+        <!-- القلم -->
+        <Geometry x:Key="IconPen">M20.71,7.04C21.1,6.65 21.1,6 20.71,5.63L18.37,3.29C18,2.9 17.35,2.9 16.96,3.29L15.12,5.12L18.87,8.87M3,17.25V21H6.75L17.81,9.93L14.06,6.18L3,17.25Z</Geometry>
+        <!-- الممحاة -->
+        <Geometry x:Key="IconEraser">M16.24,3.56L21.19,8.5C21.97,9.29 21.97,10.55 21.19,11.34L12,20.53C10.44,22.09 7.91,22.09 6.34,20.53L2.81,17C2.03,16.21 2.03,14.95 2.81,14.16L11.3,5.68C12.86,4.12 15.39,4.12 16.96,5.68V5.68M4.22,15.58L7.76,19.11C8.54,19.9 9.8,19.9 10.59,19.11L14.12,15.58L9.17,10.63L4.22,15.58Z</Geometry>
+        <!-- التظليل -->
+        <Geometry x:Key="IconHighlighter">M19.3,2.7C18.9,2.3 18.3,2.3 17.9,2.7L12.2,8.4L15.6,11.8L21.3,6.1C21.7,5.7 21.7,5.1 21.3,4.7L19.3,2.7M3,17V21H7L14.6,13.4L10.6,9.4L3,17Z</Geometry>
+        
+        <!-- ستايل الأزرار العامة -->
+        <Style TargetType="Button" x:Key="FlatBtn">
             <Setter Property="Background" Value="Transparent"/>
             <Setter Property="Foreground" Value="White"/>
             <Setter Property="BorderThickness" Value="0"/>
-            <Setter Property="Margin" Value="4"/>
-            <Setter Property="Width" Value="45"/>
-            <Setter Property="Height" Value="45"/>
             <Setter Property="Cursor" Value="Hand"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
-                        <Border Background="{TemplateBinding Background}" CornerRadius="12">
+                        <Border Background="{TemplateBinding Background}" CornerRadius="5" Padding="5">
                             <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
                         </Border>
                         <ControlTemplate.Triggers>
                             <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" Value="#44FFFFFF"/>
+                                <Setter Property="Background" Value="#33FFFFFF"/>
                             </Trigger>
                         </ControlTemplate.Triggers>
                     </ControlTemplate>
